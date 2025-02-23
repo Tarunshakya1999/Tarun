@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Payment Success
+{% endblock %}
+
+{% block tarun %}
+<div class="container">
+    <h3>Payment Successful!</h3>
+    <p>Order ID: {{ order_id }}</p>
+    <p>Payment ID: {{ payment_id }}</p>
+    <p>Customer ID: {{ cust_id }}</p>
+    <p>Thank you for your purchase!</p>
+</div>
+{% endblock %}

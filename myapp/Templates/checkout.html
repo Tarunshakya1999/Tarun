@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h3>Order Summary</h3>
+            <hr>
+            {% for item in cart_items %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5>Product: {{ item.product.title }}</h5>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        <p class="fw-bold">Price: ₹{{ item.product.discounted_price }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <p class="fw-bold">Total Amount: ₹{{ total_amount }} + ₹40 (Shipping)</p>
+            <small>Terms and Conditions: Delivery charges are extra. Orders will be delivered within 30-45 minutes.</small>
+        </div>
+
+        <div class="col-md-5 offset-md-1">
+            <h4>Select Shipping Address</h4>
+            <hr>
+            <form action="post" id="myform">
+                {% csrf_token %}
+                <div class="form-check mt-3 mb-5">
+                    <input class="form-check-input" type="radio" name="custid" value="1" id="address1">
+                    <label class="form-check-label" for="address1">
+                        Shipping Address 1
+                    </label>
+                </div>
+                
+                <div class="form-check mt-3 mb-5">
+                    <input class="form-check-input" type="radio" name="custid" value="2" id="address2">
+                    <label class="form-check-label" for="address2">
+                        Shipping Address 2
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <label for="totalamount" class="form-label">Total Amount</label>
+                    <input type="number" class="form-control" name="totalamount" value="{{ total_amount }}" readonly>
+                </div>
+
+                <div class="text-end">
+                    <button type="button" id="rzp-button1" class="btn btn-info mt-3 px-5 fw-bold">Pay with Razorpay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block payment %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "{{ rzp_test_BzASfuBzeuHtgZ }}", // Your Razorpay Key ID
+        "amount": "{{ total_amount|floatformat:2 }}", // Amount in paise
+        "currency": "INR",
+        "name": "Your E-Commerce Store",
+        "description": "Order Payment",
+        "order_id": "{{ razorpay_order_id }}", // Razorpay Order ID
+        "handler": function (response) {
+            // On payment success, redirect the user
+            window.location.href = "/paymentdone/?order_id=" + response.razorpay_order_id + "&payment_id=" + response.razorpay_payment_id + "&cust_id=" + document.querySelector('input[name="custid"]:checked').value;
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock %}

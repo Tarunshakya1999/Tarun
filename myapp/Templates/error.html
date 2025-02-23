@@ -1,0 +1,17 @@
+
+
+{% block title %}
+    Error - Something Went Wrong
+{% endblock %}
+
+{% block tarun %}
+<div class="container mt-5">
+    <h3>Error</h3>
+    <div class="alert alert-danger" role="alert">
+        <strong>Oops!</strong> Something went wrong while processing your request.
+        <p>{{ error }}</p>
+    </div>
+    <p>Please try again later or contact support if the issue persists.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% extends "home.html" %}
+{% load static %}
+{% block title %}HOME{% endblock title %}
+{% block tarun %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <!-- AOS (Animate On Scroll)-->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        #add
+        {
+            background-color: deeppink;
+            color: white;
+           
+        }
+        #add:hover
+        {
+            background-color:#B3137E;
+            color: white;
+        
+        }
+
+      
+    </style>
+</head>
+<body>
+<br> 
+<!-- Hero Section -->
+<section id="home" class="hero" data-aos="fade-up">
+    <div class="hero-content text-center">
+        <h1>Welcome to GadgetHub</h1>
+        <p>Your favorite online store for the best deals!</p>
+        <a href="{% url "category_view" %}" class="btn btn-danger btn-lg"id="mybtn">View Products </a>
+    </div>
+</section>
+
+<!-- Products Section -->
+<!-- Monitors Section -->
+<section id="monitors" class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-right" data-aos-delay="100">Our Monitors</h2>
+    <div class="row">
+        {% for m in monitorss %}
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="product-card">
+                <!-- Set a fixed height for the image and use object-fit: cover to maintain uniformity -->
+                <img src="{{ m.upload_image.url }}" alt="{{ m.name }}" class="img-fluid" style="height: 300px; object-fit: cover;">
+
+                <div class="product-card-body">
+                    <h5>{{ m.name }}</h5>
+                    <p>Rs.{{ m.price }}/-</p>
+                    <a href="{% url 'product2' m.id %}" class="btn btn-lg" id="add">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Additional Product Section -->
+<!-- Mobiles Section -->
+<section id="mobiles" class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-left" data-aos-delay="300">Our Mobiles</h2>
+    <div class="row">
+        {% for i in product %}
+        <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="product-card box">
+                <a href="{% url 'product' i.id %}">
+                    <!-- Set a fixed height and use object-fit: cover to ensure uniformity -->
+                    <img src="{{ i.upload_image.url }}" class="img-fluid" alt="{{ i.name }}" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="product-card-body">
+                    <h5>{{ i.name }}</h5>
+                    <p>Rs.{{ i.price }}/-</p>
+        
+                    <a href="{% url 'product' i.id %}" class="btn btn-danger btn-lg" id="add">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% comment %} Earphones {% endcomment %}
+<!-- Earphones Section -->
+<!-- Earphones Section -->
+<section id="earphones" class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-right" data-aos-delay="100">Our Featured Earphones</h2>
+    <div class="row">
+        {% for e in earphoness %}
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="product-card">
+                <!-- Set a fixed height and use object-fit: cover to ensure uniformity -->
+                <img src="{{ e.upload_image.url }}" alt="{{ e.name }}" class="img-fluid" style="height: 250px; object-fit: cover;">
+                <div class="product-card-body">
+                    <h5>{{ e.name }}</h5>
+                    <p>Rs.{{ e.price }}/-</p>
+                    <a href="{% url "product3" e.id%}" class="btn btn-lg" id="add">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- Gaming Consoles Section -->
+<section id="gaming-consoles" class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-right" data-aos-delay="100">Gaming Consoles</h2>
+    <div class="row">
+        {% for g in gamingconsolss %}
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="product-card">
+                <!-- Set a fixed height for the image and use object-fit: cover to maintain uniformity -->
+                <img src="{{ g.upload_image.url }}" alt="{{ g.name }}" class="img-fluid" style="height: 300px; object-fit: cover;">
+
+                <div class="product-card-body">
+                    <h5>{{ g.name }}</h5>
+                    <p>Rs.{{ g.price }}/-</p>
+                    <a href="{% url 'product4' g.id %}" class="btn btn-lg" id="add">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- Video Games Section -->
+<section id="games" class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-right" data-aos-delay="100">Video Games</h2>
+    <div class="row">
+        {% for game in games %}
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="product-card">
+                <!-- Set a fixed size for the image and use object-fit: cover to maintain uniformity -->
+                <img src="{{ game.upload_image.url }}" alt="{{ game.name }}" class="img-fluid" style="height: 300px; object-fit: cover;">
+
+                <div class="product-card-body">
+                    <h5>{{ game.name }}</h5>
+                    <p>Rs.{{ game.price }}/-</p>
+                    <a href="{% url 'product5' game.id %}" class="btn btn-lg" id="add">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Footer -->
+{% include "footer.html" %}
+
+<!-- Bootstrap JS, AOS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    let mybtn = document.querySelector('#mybtn'); 
+    mybtn.addEventListener('click',(e) =>{
+        alert("Please scroll to see and buy the products");
+    });
+
+    // Initialize AOS (Animate On Scroll)
+    AOS.init({
+        duration: 900,  // Animation duration
+        once: false,     // Keep animations from being triggered infinite
+        offset: 200,     // Offset to start animations a little earlier
+    });
+
+    // To ensure AOS animations trigger properly during scroll
+    window.addEventListener('scroll', function() {
+        AOS.refresh(); // Refresh AOS when user scrolls
+    });
+
+</script>
+
+</body>
+</html>
+{% endblock tarun %}

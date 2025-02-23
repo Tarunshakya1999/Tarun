@@ -1,0 +1,35 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Registration{% endblock title %}
+{% block tarun %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Registration</h3>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5">
+                {% csrf_token %}
+                {% for i in form %}
+                {{i.label_tag}}{{i}}
+                <small class="text-danger">{{i.errors|striptags}}</small>
+                <br>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary"style="width:540px;">Register</button><br>
+                <div class="text-center text-primary fw-bold">
+                    <small>Existing User?<a href="{% url 'login'%}"class="text-danger"style="margin-left:10px;">Login</a></small>
+                </div>
+                {% if form.non_field_errors %}
+                {% for errors in form.non_field_errors %}
+                   <p class="alert alert-danger my-3">{{errors}}</p>
+                {% endfor %}
+                {% endif %}
+                {% if messages %}
+                    {% for i  in messages %}
+                        <div class="alert alert-{{msg.tags}}"role="alert">{{i}}</div>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock tarun%}

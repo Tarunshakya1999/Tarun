@@ -1,0 +1,169 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Products{% endblock title %}
+{% block tarun %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Product Image and Details -->
+        <div class="col-12 col-md-10 col-lg-8">  <!-- Adjusted column width here -->
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <!-- Product Image with Hover Effect -->
+                    <div class="text-center mb-4">
+                        <img src="{{ product.upload_image.url }}" alt="{{ product.name }}" class="img-fluid rounded mb-3 product-img" height="250" width="100%">  <!-- Adjusted height -->
+                    </div>
+                    <!-- Product Name and Company -->
+                    <h2 class="text-center font-weight-bold product-name">{{ product.name }}</h2>
+                    <h5 class="text-center  product-des">{{ product.description}}</h5>
+                    <h4 class="text-center text-muted mb-4 product-company">{{ product.company }}</h4>
+
+                    <!-- Price Details -->
+                    <div class="text-center mb-4">
+                        <h4>
+                            <del style="color: grey;" class="product-old-price">{{ product.price }}</del>
+                        </h4>
+                        <h4 class="text-danger font-weight-bold product-new-price">{{ product.discounted_price }}</h4>
+                    </div>
+
+                    <!-- Add to Cart Button -->
+                    <div class="text-center">
+                        <form action="/add-to-cart" class="d-inline">
+                            <input type="hidden" name="prod_id" value="{{ product.id }}" />
+                            <button type="submit" class="btn btn-primary btn-lg shadow px-5 py-3 rounded-pill btn-action">Add to Cart</button>
+                            <button type="submit" class="btn btn-success btn-lg shadow px-5 py-3 rounded-pill btn-action ml-2">Buy Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Hover Effect for Product Image */
+    .product-img {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .product-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Custom Card Styling */
+    .card {
+        border: none;
+        background-color: #f8f9fa;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-body {
+        padding: 2rem;
+        position: relative;
+    }
+
+    /* Card Hover Animation */
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Product Name and Company Styling */
+    .product-name {
+        font-size: 2rem;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .product-name:hover {
+        color: #007bff;
+    }
+
+    .product-company {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    /* Price Styling */
+    .product-old-price {
+        font-size: 1.2rem;
+        text-decoration: line-through;
+        color: #888;
+    }
+
+    .product-new-price {
+        font-size: 1.5rem;
+        color: #e74c3c;
+        font-weight: bold;
+    }
+
+    /* Button Styling */
+    .btn-action {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-action:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    /* Animation for Buttons */
+    .btn-primary, .btn-success {
+        animation: buttonAnimation 0.8s ease-in-out;
+    }
+
+    @keyframes buttonAnimation {
+        0% {
+            transform: scale(0.9);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Custom responsive design for mobile */
+    @media (max-width: 768px) {
+        .product-img {
+            height: auto;
+            width: 100%;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.8rem;
+        }
+
+        .product-company {
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock tarun %}

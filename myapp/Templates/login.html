@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block tarun %}
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-6 mx-auto">
+            <h3 class="text-center text-primary mb-4" data-aos="fade-up">Login Here</h3>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5 rounded-4" data-aos="fade-up" data-aos-delay="300">
+                {% csrf_token %}
+                {% for i in form %}
+                    <div class="form-group mb-4">
+                        {{ i.label_tag }}
+                        {{ i }}
+                        <small class="text-danger">
+                            {{ i.errors |striptags }}
+                        </small>
+                    </div>
+                {% endfor %}
+                <small><a href="{% url "password_reset" %}" class="text-primary">Forgot Password?</a></small> <br>
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-3" style="transition: all 0.3s ease;" data-aos="zoom-in" data-aos-delay="500">Login</button>
+                
+                <div class="text-center text-primary fw-bold mt-4">
+                    <small>
+                        New user?
+                        <a href="{% url 'registration' %}" class="text-danger">Create An Account</a>
+                    </small>
+                </div>
+
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add AOS (Animate On Scroll) library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+{% endblock tarun %}
